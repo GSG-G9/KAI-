@@ -1,0 +1,23 @@
+{
+  "name": "kai-",
+  "version": "1.0.0",
+  "description": "weather and books api project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "t": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GSG-G9/KAI-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GSG-G9/KAI-/issues"
+  },
+  "homepage": "https://github.com/GSG-G9/KAI-#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
