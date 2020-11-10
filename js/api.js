@@ -49,10 +49,3 @@ const getBookData = (search, callBack) => {
     })
 }
 
-getBookData("no game no life", (data)=>{
-    console.log(data);
-    data.forEach(element => {
-        console.log(element);
-    });
-})
-
