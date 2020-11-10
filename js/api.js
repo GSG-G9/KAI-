@@ -13,7 +13,7 @@ const fetch = (url, callBack) => {
   xhr.send(null);
 };
 
-const dataProses = (data) => {
+const dataProcessAnime = (data) => {
   return data.results.map((item) => ({
     name: item.title,
     image_url: item.image_url,
@@ -24,10 +24,35 @@ const dataProses = (data) => {
   }));
 };
 
+const dataProcessBook = (data) => {
+    return data.items.map((item) => ({
+        name: item.volumeInfo.title,
+        image_url: item.volumeInfo.imageLinks.thumbnail,
+        description: item.volumeInfo.description,
+        url: item.volumeInfo.infoLink,
+        rating: item.volumeInfo.averageRating
+    }))
+}
+
 const getAnimeData = (search, callBack) => {
   let url = `https://api.jikan.moe/v3/search/anime?q=${search}`;
   fetch(url, (data) => {
-    callBack(dataProses(data));
+    callBack(dataProcessAnime(data));
   });
 };
+
+
+const getBookData = (search, callBack) => {
+    let url = `https://www.googleapis.com/books/v1/volumes?q=${search}`
+    fetch(url, (data) => {
+        callBack(dataProcessBook(data))
+    })
+}
+
+getBookData("no game no life", (data)=>{
+    console.log(data);
+    data.forEach(element => {
+        console.log(element);
+    });
+})
 
