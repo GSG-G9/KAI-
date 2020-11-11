@@ -5,10 +5,15 @@ const fetch = (url, callBack) => {
       if (xhr.status == 200) {
         callBack(JSON.parse(xhr.responseText));
       } else {
-        console.log("error");
+        handlError(`internal error , ${xhr.status}${xhr.responseText}`);
       }
     }
   };
   xhr.open("GET", url);
   xhr.send(null);
 };
+
+function handlError(data) {
+  document.getElementById("error").textContent = data;
+}
+
