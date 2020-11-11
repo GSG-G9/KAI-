@@ -5,16 +5,14 @@ const switchToAnimeBtn = document.getElementById("switch-to-anime");
 const weatherDataContainer = document.getElementById("weather-data-container")
 const showWeatherDataBtn = document.getElementById("show-weather-data-btn");
 
-
-
 const dataProcessAnime = (data) => {
   return data.results.map((item) => ({
     name: item.title,
     image_url: item.image_url,
     description: item.synopsis,
     url: item.url,
-    episodes: item.episodes,
-    rating: item.score,
+		rating: item.score,
+		episodes: item.episodes
   }));
 };
 
@@ -22,13 +20,14 @@ const dataProcessBook = (data) => {
   return data.items.map((item) => ({
     name: item.volumeInfo.title,
     image_url: item.volumeInfo.imageLinks.thumbnail,
-    description: item.volumeInfo.description,
+    description: item.volumeInfo.description.slice(0,270),
     url: item.volumeInfo.infoLink,
     rating: item.volumeInfo.averageRating,
   }));
 };
 
-const getAnimeData = (search, callBack) => {
+const getAnimeData = (search = "no game no life", callBack) => {
+	search = search?search:"nogame no life";
   let url = `https://api.jikan.moe/v3/search/anime?q=${search}`;
   fetch(url, (data) => {
     callBack(dataProcessAnime(data));
@@ -36,39 +35,34 @@ const getAnimeData = (search, callBack) => {
 };
 
 const getBookData = (search, callBack) => {
+	search = search?search:"nogame no life";
   let url = `https://www.googleapis.com/books/v1/volumes?q=${search}`;
   fetch(url, (data) => {
     callBack(dataProcessBook(data));
   });
 };
 
-
 const singleItemStructure = (response) => { 
   const singleAnimeContainer = document.createElement("div");
-  const animeImage = document.createElement("img");
-  const singleAnimeInfo = document.createElement("div");
-  const animeTitle = document.createElement("p");
-  const animeEpisodes = document.createElement("p");
-  const animeRating = document.createElement("p");
-  const animeDescription = document.createElement("p");
-  const watchMe = document.createElement("a");
-  watchMe.href = `${response.url}`;
-  watchMe.appendChild(animeImage)
-  singleAnimeInfo.append(animeTitle, animeEpisodes, animeRating, animeDescription);
-  singleAnimeContainer.append(singleAnimeInfo, watchMe);
-  animesContainer.appendChild(singleAnimeContainer)
   singleAnimeContainer.classList.add("single-anime-container")
-  animeImage.classList.add("book-image");
+  const animeImage = document.createElement("img");
   animeImage.src=`${response.image_url}` 
-  singleAnimeInfo.classList.add("single-anime-info")
-  animeTitle.classList.add("anime-title")
-  animeTitle.innerText = `${response.name}`
-  animeEpisodes.classList.add("anime-episodes")
-  animeEpisodes.innerText = `${response.episodes}` 
-  animeRating.classList.add("anime-rating")
-  animeRating.innerText = `${response.rating}`
-  animeDescription.classList.add("anime-description")
-  animeDescription.innerText = `${response.description}`
+  const watchMe = document.createElement("a");
+  watchMe.href = response.url;	
+  const animeTitle = document.createElement("p");
+  animeTitle.innerText = response.name
+	const singleAnimeInfo = document.createElement("div");
+	singleAnimeInfo.classList.add("info")
+  const animeEpisodes = document.createElement("p");
+  animeEpisodes.innerText = response.episodes?response.episodes:"";
+  const animeRating = document.createElement("p");
+  animeRating.innerText = `Rating: ${response.rating?response.rating:"5"}`
+  const animeDescription = document.createElement("p");
+  animeDescription.innerText = `Description: ${response.description}`
+	singleAnimeInfo.append(animeEpisodes, animeRating, animeDescription);
+	watchMe.append(animeImage, singleAnimeInfo)
+  singleAnimeContainer.append(watchMe, animeTitle);
+  animesContainer.appendChild(singleAnimeContainer)
 }
 
 const renderData = (data) => {
@@ -77,54 +71,27 @@ const renderData = (data) => {
 });
 }
 
-// const renderBooks = () => {
-//   getBookData("search", renderData);
-// }
-
-
-// const renderAnime = () => {
-// }
-//   // const experament = document.querySelectorAll(".single-anime-container");
-  // experament.forEach(el => {
-  //   el.parentNode.removeChild(el)
-  
-  // getAnimeData("search", renderData);
-
 switchToBooksBtn.addEventListener('click', () => {
-  getBookData("search", renderData);
-  
+
+	makeEmpty()
+  getBookData(searchInput.value, renderData);
 });
+
 switchToAnimeBtn.addEventListener('click', () => {
-  getAnimeData("search", renderData);
-  
+	makeEmpty()
+  getAnimeData(searchInput.value, renderData);
 });
 
-// searchInput.addEventListener('keypress', function (e) {
-//   let animeName = e.target.value;
-//   (e.key === 'Enter') && getAnimeData( animeName, renderAnimes );
-  
-// });
+const makeEmpty = () => {
+	let blockArr = document.querySelectorAll(".single-anime-container")
+	blockArr.forEach(item => {
+		item .remove()
+	})
+}
+
+getBookData("no game no life", renderData);
 
 
+let doo = "sadghhrfgdfsd"
+doo.slice(3)
 
-
-
-// const weatherStructure = () => {
-
-// }
-
-// const renderWeatherData = (response) => {} ///////////dom of weather/////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-  

@@ -1,5 +1,6 @@
 # KAI-
 weather and books api project
+LINK: https://gsg-g9.github.io/KAI-/
 
 ### Team members:-
 
@@ -31,7 +32,12 @@ We divide the project to issues,and assign each issues to the team members ,some
 
 ### User story
 
-- 
+- I want the site to be for both animes and books .
+- I want to visit the site and immediatly see list of animes displayed.
+- I want to visit the site and see search bar to find what i wantc quickly.
+- I want to see two buttons to navigate between animes and books.
+- I want to see section for weather state in my country.
+- I want to see the site in all devices displayed in an elegent way.
 
 ### Installation guide
 
