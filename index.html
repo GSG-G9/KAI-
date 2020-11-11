@@ -1,35 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>weather and books api project</title>
-    <link rel="stylesheet" href="css/stye.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>weather and books api project</title>
+  <link rel="stylesheet" href="css/stye.css">
 </head>
+
 <body>
   <nav>
     <input type="search" id="search-input" name="search-input">
-    <button id="switch-to-anime">anime</button>   
+    <button id="switch-to-anime">anime</button>
     <button id="switch-to-books">books</button>
- 
-
   </nav>
-  
+
   <div id="books-container" class="container">
-   
+    <div id="error"></div>
   </div>
 
   <!-- weather data aside -->
   <aside>
     <div id="weather-data-container" class="hidden">
-      <!-- <img url="">
-      <div class='weather-info'>
-        <p class=""></p>
-        <p class=""></p>
-        <p class=""></p>
-        <p class=""></p>
-
-      </div> -->
     </div>
     <button id="show-weather-data-btn"></button>
   </aside>
@@ -37,9 +29,9 @@
 
 
 
-
+  <script src="config.js"></script>
   <script src="js/api.js"></script>
-  <script src="js/logic.js"></script>  
-  <script src="js/index.js"></script>   
+  <script src="js/index.js"></script>
 </body>
+
 </html>
