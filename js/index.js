@@ -1,10 +1,46 @@
 const searchInput = document.getElementById("search-input");
-const animesContainer= document.getElementById("animes-container-removal");
+const animesContainer= document.getElementById("books-container");
 const switchToBooksBtn = document.getElementById("switch-to-books");
 const switchToAnimeBtn = document.getElementById("switch-to-anime");
 const weatherDataContainer = document.getElementById("weather-data-container")
-const showWeatherDataBtn = document.getElementById("show-weather-data-btn")
+const showWeatherDataBtn = document.getElementById("show-weather-data-btn");
 
+
+
+const dataProcessAnime = (data) => {
+  return data.results.map((item) => ({
+    name: item.title,
+    image_url: item.image_url,
+    description: item.synopsis,
+    url: item.url,
+    episodes: item.episodes,
+    rating: item.score,
+  }));
+};
+
+const dataProcessBook = (data) => {
+  return data.items.map((item) => ({
+    name: item.volumeInfo.title,
+    image_url: item.volumeInfo.imageLinks.thumbnail,
+    description: item.volumeInfo.description,
+    url: item.volumeInfo.infoLink,
+    rating: item.volumeInfo.averageRating,
+  }));
+};
+
+const getAnimeData = (search, callBack) => {
+  let url = `https://api.jikan.moe/v3/search/anime?q=${search}`;
+  fetch(url, (data) => {
+    callBack(dataProcessAnime(data));
+  });
+};
+
+const getBookData = (search, callBack) => {
+  let url = `https://www.googleapis.com/books/v1/volumes?q=${search}`;
+  fetch(url, (data) => {
+    callBack(dataProcessBook(data));
+  });
+};
 
 
 const singleItemStructure = (response) => { 
@@ -41,27 +77,27 @@ const renderData = (data) => {
 });
 }
 
-const renderAnime = () => {
-  getAnimeData("search", renderData);
-}
-const renderBooks = () => {
-  animesContainerRemoval.parentNode.removeChild(animesContainerRemoval);
+// const renderBooks = () => {
+//   getBookData("search", renderData);
+// }
+
+
+// const renderAnime = () => {
+// }
+//   // const experament = document.querySelectorAll(".single-anime-container");
+  // experament.forEach(el => {
+  //   el.parentNode.removeChild(el)
+  
+  // getAnimeData("search", renderData);
+
+switchToBooksBtn.addEventListener('click', () => {
   getBookData("search", renderData);
-}
-switchToBooksBtn.addEventListener('click', function() {
-  singleAnimeContainer.parentNode.removeChild(singleAnimeContainer);
-  renderBooks();
   
 });
-switchToAnimeBtn.addEventListener('click', function() {
-  renderAnime();
-
+switchToAnimeBtn.addEventListener('click', () => {
+  getAnimeData("search", renderData);
   
 });
-
-
-  
-
 
 // searchInput.addEventListener('keypress', function (e) {
 //   let animeName = e.target.value;
@@ -91,38 +127,4 @@ switchToAnimeBtn.addEventListener('click', function() {
 
 
 
-const dataProcessAnime = (data) => {
-    return data.results.map((item) => ({
-      name: item.title,
-      image_url: item.image_url,
-      description: item.synopsis,
-      url: item.url,
-      episodes: item.episodes,
-      rating: item.score,
-    }));
-  };
-  
-  const dataProcessBook = (data) => {
-    return data.items.map((item) => ({
-      name: item.volumeInfo.title,
-      image_url: item.volumeInfo.imageLinks.thumbnail,
-      description: item.volumeInfo.description,
-      url: item.volumeInfo.infoLink,
-      rating: item.volumeInfo.averageRating,
-    }));
-  };
-  
-  const getAnimeData = (search, callBack) => {
-    let url = `https://api.jikan.moe/v3/search/anime?q=${search}`;
-    fetch(url, (data) => {
-      callBack(dataProcessAnime(data));
-    });
-  };
-  
-  const getBookData = (search, callBack) => {
-    let url = `https://www.googleapis.com/books/v1/volumes?q=${search}`;
-    fetch(url, (data) => {
-      callBack(dataProcessBook(data));
-    });
-  };
   
