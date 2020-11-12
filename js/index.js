@@ -107,7 +107,7 @@ const makeEmpty = () => {
   })
 }
 
-getBookData("no game no life", renderData);
+getBookData("Goblin Slayer", renderData);
 fetch(url, (data) => getWeather(weatherData(data)));
 makeEvent(switchToBooksBtn);
 makeEvent(switchToAnimeBtn);
