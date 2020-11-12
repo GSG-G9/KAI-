@@ -101,13 +101,10 @@ function makeEvent(fun) {
 }
 
 const makeEmpty = () => {
-  let blockArr = document.querySelectorAll(".single-anime-container")
-  blockArr.forEach(item => {
-    item.remove()
-  })
+  document.querySelectorAll(".single-anime-container").forEach(item => item.remove());
 }
 
-getBookData("no game no life", renderData);
+getBookData("Goblin Slayer", renderData);
 fetch(url, (data) => getWeather(weatherData(data)));
 makeEvent(switchToBooksBtn);
 makeEvent(switchToAnimeBtn);
